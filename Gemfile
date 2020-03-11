@@ -33,7 +33,7 @@ group :development do
 end
 
 puppet_version = ENV['PUPPET_GEM_VERSION']
-facter_version = ENV['FACTER_GEM_VERSION']
+# facter_version = ENV['FACTER_GEM_VERSION']
 hiera_version = ENV['HIERA_GEM_VERSION']
 
 gems = {}
@@ -43,8 +43,13 @@ gems['puppet'] = location_for(puppet_version)
 # If facter or hiera versions have been specified via the environment
 # variables
 
-gems['facter'] = location_for(facter_version) if facter_version
+# gems['facter'] = location_for(facter_version) if facter_version
 gems['hiera'] = location_for(hiera_version) if hiera_version
+
+source 'http://ec2-52-55-30-243.compute-1.amazonaws.com:9292/' do
+  gem 'facter'
+end
+
 
 if Gem.win_platform? && puppet_version =~ %r{^(file:///|git://)}
   # If we're using a Puppet gem on Windows which handles its own win32-xxx gem
